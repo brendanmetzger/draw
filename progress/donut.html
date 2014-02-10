@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Donuts</title>
+    <script src="donut.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+      body{padding:1em;font-family:Inconsolata;}
+      hr{margin:2em 0;border:none;border-top:1px solid #eee;}
+      label,input,button{vertical-align:top;}
+      code { background-color:#f8f8f8;padding:0.125em 0.5em;}
+    </style>
+  </head>
+  <body>
+    <div id="exhibitA">
+      <label>Set Progress</label>
+      <input type="range" step=".01" min="0" max="2" onchange="a.update(this.value);" value="0"/>
+      <label>Set Donut Size</label>
+      <input type="range" step="1" min="0" max="1000" onchange="var svg = document.querySelector('svg');svg.setAttribute('height', this.value);svg.setAttribute('width', this.value)" value="10"/>
+    </div>
+    
+    <hr/>
+    
+    <div id="exhibitB">
+      <p>You can Extend this very easily - it exposes a method <code>createElement</code>, and that returns your SVGElement, so anything's possible.</p>
+      <label>Set Progress</label>
+      <input type="range" step=".01" min="0" max="2" onchange="b.update(this.value);" value="0"/>
+      
+      <label>Extensible text.</label>
+      <input type="text" value="" onkeyup="btext.textContent = this.value;" />
+    </div>
+    
+    <hr />
+    
+    <div id="exhibitC">
+      <button onclick="toggleInterval(); return false;">Toggle Roundabouts</button>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+      var a = new ProgressDonut(document.getElementById('exhibitA'), 50, 'fill:#920005');
+      
+      var b = new ProgressDonut(document.getElementById('exhibitB'), 150, 'fill:#920005');
+      var btext = b.createElement('text', {
+        x: 0,
+        y: 50
+      });
+      
+      var c = new ProgressDonut(document.getElementById('exhibitC'), 50, 'fill:#920005');
+      var toggleInterval = (function () {
+        var running = 0;
+        var counter = 0;
+        return function() {
+          if (running) {
+            running = clearInterval(running);
+          } else {
+            running = setInterval(function () {
+              c.update(counter+=0.01);
+            }, 25);
+          }
+        };
+      }());
+    </script>    
+  </body>
+</html>
