@@ -14,7 +14,9 @@ var ProgressDonut = function(embed_container, size, css) {
     var radian = (2 * Math.PI) * percentage;
     var x = (Math.cos(radian) * 50) + 55;
     var y = ((Math.sin(radian) - 1e-5) * 50) + 55;
-    return path.setAttribute('d', "M55,55 l50,0 A50,50 0 " + (y < 50 ? 1 : 0) + "1 " + x + "," + y + "z");
+    path.setAttribute('transform', 'rotate(' + (-90 + percentage * 360) + ' 55 55)');
+    path.setAttribute('d', "M55,55 l50,0 A50,50 0 " + (y < 55 ? 1 : 0) + "1 " + x + "," + y + "z");
+    return path;
   };
 
   svg = this.createElement('svg', {
@@ -35,7 +37,7 @@ var ProgressDonut = function(embed_container, size, css) {
     'cx': 55,
     'cy': 55,
     'r': 50,
-    'style': 'fill:#000;stroke:#fff;stroke-width:50;'
+    'style': 'fill:#000;stroke:#fff;stroke-width:20;'
   }, mask);
 
   complete = this.createElement('circle', {
@@ -51,6 +53,17 @@ var ProgressDonut = function(embed_container, size, css) {
     'transform': 'rotate(-90 55 55)',
     'mask': mask
   });
-
+  
+  // var animate = this.createElement('animateTransform', {
+  //   attributeName: 'transform',
+  //   attributeType: 'XML',
+  //   type: 'rotate',
+  //   from: '0 50 50',
+  //   to: '360 50 50',
+  //   dur: '1s',
+  //   begin: '0s',
+  //   repeatCount: 'indefinite'
+  // }, path);
+  
   return this;
 };
