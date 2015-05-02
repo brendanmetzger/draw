@@ -41,7 +41,7 @@ var ProgressDonut = function(embed_container, size, css) {
     'cx': 55,
     'cy': 55,
     'r': 50,
-    'style': 'fill:#000;stroke:#fff;stroke-width:50;'
+    'style': 'fill:#000;stroke:#fff;stroke-width:20;'
   }, mask);
 
   complete = this.createElement('circle', {
